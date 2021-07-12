@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+black = "*"
+flake8 = "*"
+
+[packages]
+numpy = "*"
+pandas = "*"
+ipykernel = "*"
+matplotlib = "*"
+japanize-matplotlib = "*"
+tqdm = "*"
+pandarallel = "*"
+
+[requires]
+python_version = "3.9"

@@ -1,0 +1,1 @@
+Published an article in Zenn: https://zenn.dev/taku227/articles/833455ace8a3aa
