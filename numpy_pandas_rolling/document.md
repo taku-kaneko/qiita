@@ -13,12 +13,12 @@ Google 検索で、`Numpy rolling` で調べてみると、
 `Numpy.roll()` はデータを環状にして、特定の軸方向に回転させるような処理で、データの開始点をずらすときに用いられるようです。
 ですので、今回の目的には合いません。
 
-次に、`Numpy.lib.stride_tricks.as_strided()` ですが、こちらは[この記事](https://turtlechan.hatenablog.com/entry/2019/09/11/225655)で紹介されている方法で、Pandas の rolling メソッドと同じ処理ができるようです。
+次に、`Numpy.lib.stride_tricks.as_strided()` ですが、こちらは[この記事](https://turtlechan.hatenablog.com/entry/2019/09/11/225655)で紹介されているとおり、Pandas の rolling メソッドと同じ処理ができるようです。
 しかしながら、窓のスライド幅（ストライド数）を Byte で指定する必要があり、使いやすくはなさそうです。
 
 一方で、今回ご紹介する `Numpy.lib.stride_tricks.sliding_window_view()` は、窓の shape と窓をスライドさせる軸を指定するだけで Pandas の rolling () とほぼ同じ処理が可能です。
 こちらの関数は、2021年1月30日にリリースされた Numpy 1.20.0 で追加されましたので、比較的新しい関数になります。
-そのためなのか、あまり　sliding_window_view() を取り上げた記事が見当たりませんでした。
+そのためなのか、あまり sliding_window_view() を取り上げた記事が見当たりませんでした。
 
 ## sliding_window_view() で rolling 処理
 時系列処理における例を3つ載せます。
@@ -118,6 +118,7 @@ df.groupby(Groups).rolling(winsize).apply(lambda x: x.mean())
 ```
 で、処理速度を比較した結果です。
 詳しい実験方法は省略しますが、Pandas で処理した場合はグループ数に比例して処理時間が大きくなっていくのに対して、itertools と Numpy を併用した場合は処理速度が大きく変わることはありませんでした。
+![](https://storage.googleapis.com/zenn-user-upload/3526cf78b312a57acc1d0793.png)
 
 
 実験に使用したコードは以下のとおりです。
@@ -193,7 +194,7 @@ os.makedirs(os.path.dirname(savename), exist_ok=True)
 plt.savefig(savename, dpi=300)
 plt.close()
 
-# グラフの作成
+# 計算結果のプロット
 results_pandas = results_pandas.reset_index()
 
 fig, ax = plt.subplots(figsize=(16, 9))
